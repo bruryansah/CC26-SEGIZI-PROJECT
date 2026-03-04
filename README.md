@@ -1,84 +1,180 @@
-CC26-SeGizi
+<div align="center">
 
-Aplikasi bertema Healthy Lives & Well-Being berbasis Laravel 12 + Vue 3 untuk membantu pengguna menjalani pola hidup sehat melalui resep, filter nutrisi, kalkulator BMI & kebutuhan kalori, serta artikel edukasi.
+<img src="https://img.shields.io/badge/-%F0%9F%A5%97%20SeGizi-2d6a4f?style=for-the-badge&logoColor=white" alt="SeGizi" height="40"/>
 
-🧱 Tech Stack
+# 🥗 CC26 — SeGizi
 
-Laravel 12.53.0
+**Aplikasi Healthy Lives & Well-Being**
 
-PHP 8.2.28
+*Resep bergizi · Filter nutrisi · Kalkulator BMI & Kalori · Artikel edukasi*
 
-Composer 2.9.5
+<br/>
 
-Node.js v24.14.0
+![Laravel](https://img.shields.io/badge/Laravel-12.53.0-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2.28-777BB4?style=flat-square&logo=php&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.5.29-4FC08D?style=flat-square&logo=vue.js&logoColor=white)
+![Inertia](https://img.shields.io/badge/Inertia.js-2.3.17-9553E9?style=flat-square&logo=inertia&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-Latest-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Node](https://img.shields.io/badge/Node.js-v24.14.0-339933?style=flat-square&logo=node.js&logoColor=white)
 
-NPM 10.8.2
+</div>
 
-Vue 3.5.29
+---
 
-Inertia.js (@inertiajs/vue3 2.3.17)
+## ✨ Fitur Utama
 
-Vite (default Laravel 12)
+| Fitur | Deskripsi |
+|-------|-----------|
+| 🍽️ **Resep Bergizi** | Kumpulan resep makanan sehat dengan informasi nutrisi lengkap |
+| 🔍 **Filter Nutrisi** | Cari resep berdasarkan kandungan nutrisi & kategori diet |
+| ⚖️ **Kalkulator BMI** | Hitung Body Mass Index dan interpretasi hasilnya |
+| 🔥 **Kebutuhan Kalori** | Estimasi kalori harian berdasarkan usia, berat, tinggi, & aktivitas |
+| 📰 **Artikel Edukasi** | Konten informatif seputar gaya hidup sehat |
 
-⚙️ Requirements
+---
 
-Pastikan sudah terinstall:
+## 🧱 Tech Stack
 
-PHP ≥ 8.2
+| Layer | Teknologi | Versi |
+|-------|-----------|-------|
+| Backend | Laravel | 12.53.0 |
+| Runtime | PHP | 8.2.28 |
+| Package Manager | Composer | 2.9.5 |
+| Frontend | Vue 3 | 3.5.29 |
+| SPA Bridge | Inertia.js (@inertiajs/vue3) | 2.3.17 |
+| Build Tool | Vite | Laravel 12 Default |
+| Runtime JS | Node.js | v24.14.0 |
+| Package Manager JS | NPM | 10.8.2 |
+| Database | MySQL / MariaDB | — |
 
-Composer ≥ 2.x
+---
 
-Node.js ≥ 20
+## ⚙️ Requirements
 
-MySQL / MariaDB
+Pastikan sudah terinstall di sistem kamu:
 
-🚀 Installation & Setup
-1️⃣ Clone Repository
+- **PHP** ≥ 8.2
+- **Composer** ≥ 2.x
+- **Node.js** ≥ 20
+- **MySQL** atau **MariaDB**
+
+---
+
+## 🚀 Instalasi & Setup
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/username/cc26-segizi.git
 cd cc26-segizi
-2️⃣ Install Backend Dependencies
+```
+
+### 2️⃣ Install Backend Dependencies
+
+```bash
 composer install
-3️⃣ Install Frontend Dependencies
+```
+
+### 3️⃣ Install Frontend Dependencies
+
+```bash
 npm install
-4️⃣ Setup Environment
+```
 
-Copy file environment:
+### 4️⃣ Setup Environment
 
+```bash
+# Salin file environment
 cp .env.example .env
 
-Generate app key:
-
+# Generate application key
 php artisan key:generate
-5️⃣ Konfigurasi Database
+```
 
-Edit file .env:
+### 5️⃣ Konfigurasi Database
 
+Edit file `.env` sesuai konfigurasi database lokal kamu:
+
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=segizi
 DB_USERNAME=root
 DB_PASSWORD=
-6️⃣ Migrasi Database
+```
+
+### 6️⃣ Migrasi Database
+
+```bash
 php artisan migrate
+```
 
-Jika terdapat seeder:
+> Jika tersedia seeder:
+> ```bash
+> php artisan db:seed
+> ```
 
-php artisan db:seed
-7️⃣ Jalankan Development Server
+### 7️⃣ Jalankan Development Server
 
-Karena menggunakan Laravel + Vue (Vite), jalankan dua terminal:
+Karena menggunakan **Laravel + Vue (Vite)**, jalankan dua terminal secara bersamaan:
 
-Terminal 1:
-
+**Terminal 1 — Backend**
+```bash
 php artisan serve
+```
 
-Terminal 2:
-
+**Terminal 2 — Frontend**
+```bash
 npm run dev
+```
 
-Akses aplikasi di:
+Akses aplikasi di browser:
 
+```
 http://127.0.0.1:8000
-🏗️ Build Production
+```
+
+---
+
+## 🏗️ Build Production
+
+```bash
 npm run build
+```
+
+---
+
+## 📁 Struktur Proyek
+
+```
+cc26-segizi/
+├── app/                  # Logic aplikasi Laravel
+│   ├── Http/Controllers/ # Controller
+│   └── Models/           # Eloquent Models
+├── database/
+│   ├── migrations/       # Skema database
+│   └── seeders/          # Data awal
+├── resources/
+│   ├── js/               # Vue 3 components & pages
+│   └── views/            # Blade entry point (Inertia)
+├── routes/
+│   └── web.php           # Routing aplikasi
+├── public/               # Asset publik
+├── .env.example          # Template environment
+└── vite.config.js        # Konfigurasi Vite
+```
+
+---
+
+## 👥 Tim CC26
+
+> Proyek ini dikembangkan sebagai bagian dari program **Capstone CC26** dengan tema *Healthy Lives & Well-Being* (SDGs Goal 3).
+
+---
+
+<div align="center">
+
+Made with 💚 by **CC26 Team** · 2025
+
+</div>
