@@ -65,8 +65,8 @@ Pastikan sudah terinstall di sistem kamu:
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/username/cc26-segizi.git
-cd cc26-segizi
+git clone https://github.com/bruryansah/CC26-SEGIZI-PROJECT.git
+cd cc26-segizi-project
 ```
 
 ### 2️⃣ Install Backend Dependencies
@@ -143,29 +143,6 @@ http://127.0.0.1:8000
 npm run build
 ```
 
----
-
-## 📁 Struktur Proyek
-
-```
-cc26-segizi/
-├── app/                  # Logic aplikasi Laravel
-│   ├── Http/Controllers/ # Controller
-│   └── Models/           # Eloquent Models
-├── database/
-│   ├── migrations/       # Skema database
-│   └── seeders/          # Data awal
-├── resources/
-│   ├── js/               # Vue 3 components & pages
-│   └── views/            # Blade entry point (Inertia)
-├── routes/
-│   └── web.php           # Routing aplikasi
-├── public/               # Asset publik
-├── .env.example          # Template environment
-└── vite.config.js        # Konfigurasi Vite
-```
-
----
 
 ## 👥 Tim CC26
 
@@ -175,6 +152,6 @@ cc26-segizi/
 
 <div align="center">
 
-Made with 💚 by **CC26 Team** · 2025
+Made with 💚 by **CC26 Team** · 2026
 
 </div>
