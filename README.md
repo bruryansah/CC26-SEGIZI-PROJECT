@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/-%F0%9F%A5%97%20SeGizi-2d6a4f?style=for-the-badge&logoColor=white" alt="SeGizi" height="40"/>
 
-# 🥗 CC26 — SeGizi
+#SeGizi
 
 **Aplikasi Healthy Lives & Well-Being**
 
