@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-vue-next';
+import { BookOpen, Calculator, Flame, FolderGit2, LayoutGrid, Newspaper, Scale, Utensils } from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -20,8 +20,28 @@ import type { NavItem } from '@/types';
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: dashboard.url(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'BMI Calculator',
+        href: '/bmi-calculator',
+        icon: Scale,
+    },
+    {
+        title: 'Calorie Calculator',
+        href: '/calorie-calculator',
+        icon: Flame,
+    },
+    {
+        title: 'Recipes',
+        href: '/recipes',
+        icon: Utensils,
+    },
+    {
+        title: 'Articles',
+        href: '/articles',
+        icon: Newspaper,
     },
 ];
 
@@ -59,7 +79,7 @@ const footerNavItems: NavItem[] = [
 
         <SidebarFooter>
             <NavFooter :items="footerNavItems" />
-            <NavUser />
+            <NavUser v-if="$page.props.auth.user" />
         </SidebarFooter>
     </Sidebar>
     <slot />
