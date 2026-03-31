@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
+// Fortify authentication routes
+require base_path('routes/auth.php');
+
 Route::inertia('/', 'Welcome', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
@@ -30,4 +33,3 @@ require __DIR__ . '/settings.php';
 Route::get('/tes', function () {
     return 'Hello World';
 });
-
