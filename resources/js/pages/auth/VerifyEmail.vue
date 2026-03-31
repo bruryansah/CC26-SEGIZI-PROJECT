@@ -1,49 +1,45 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import TextLink from '@/components/TextLink.vue';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/AuthLayout.vue';
-import { logout } from '@/routes';
-import { send } from '@/routes/verification';
 
 defineProps<{
     status?: string;
 }>();
+
+const form = useForm({});
+
+const submit = () => {
+    form.post('/email/verification-notification');
+};
 </script>
 
 <template>
-    <AuthLayout
-        title="Verify email"
-        description="Please verify your email address by clicking on the link we just emailed to you."
-    >
-        <Head title="Email verification" />
+    <Head title="Email Verification" />
 
-        <div
-            v-if="status === 'verification-link-sent'"
-            class="mb-4 text-center text-sm font-medium text-green-600"
-        >
-            A new verification link has been sent to the email address you
-            provided during registration.
-        </div>
+    <div class="min-h-screen flex items-center justify-center bg-white font-sans">
+        <div class="w-full max-w-[400px] p-8 text-center space-y-6">
+            <h1 class="text-3xl font-extrabold text-black">Verifikasi Email</h1>
+            <p class="text-gray-600">
+                Silakan verifikasi email kamu dengan mengklik link yang sudah kami kirimkan.
+            </p>
 
-        <Form
-            v-bind="send.form()"
-            class="space-y-6 text-center"
-            v-slot="{ processing }"
-        >
-            <Button :disabled="processing" variant="secondary">
-                <Spinner v-if="processing" />
-                Resend verification email
-            </Button>
+            <div v-if="status === 'verification-link-sent'" class="text-sm font-medium text-green-600">
+                Link verifikasi baru sudah dikirimkan ke email kamu.
+            </div>
 
-            <TextLink
-                :href="logout()"
-                as="button"
-                class="mx-auto block text-sm"
-            >
+            <form @submit.prevent="submit" class="space-y-4">
+                <Button type="submit" :disabled="form.processing" class="w-full bg-[#36d362] hover:bg-green-500 text-white font-bold py-3 rounded-xl">
+                    <Spinner v-if="form.processing" />
+                    Kirim Ulang Email Verifikasi
+                </Button>
+            </form>
+
+            <Link href="/logout" method="post" as="button"
+                class="text-sm text-gray-500 hover:text-green-500 transition">
                 Log out
-            </TextLink>
-        </Form>
-    </AuthLayout>
+            </Link>
+        </div>
+    </div>
 </template>
+
