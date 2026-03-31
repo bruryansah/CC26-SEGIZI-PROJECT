@@ -7,54 +7,44 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, ChevronRight } from 'lucide-vue-next';
 
+import hidrasiImage from '../../../images/hidrasi.jpg';
+import tidurImage from '../../../images/tidur.jpg';
+import nutrisiImage from '../../../images/nutrisi tulang.jpg';
+
 const searchQuery = ref('');
 const activeCategory = ref('Semua');
 
-const categories = ['Semua', 'Diet', 'Gizi', 'Pola makan', 'Lifestyle'];
+const categories = ['Semua', 'Gaya Hidup Sehat', 'Mitos & Fakta', 'Nutrisi & Gizi'];
 
 const articles = [
     {
         id: 1,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Diet',
-        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop',
+        title: '7 Kunci Hidrasi untuk Metabolisme',
+        excerpt: 'Temukan bagaimana konsumsi air yang cukup dapat mempercepat pembakaran lemak harian Anda.',
+        category: 'Gaya Hidup Sehat',
+        image: hidrasiImage,
     },
     {
         id: 2,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Gizi',
-        image: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?w=800&auto=format&fit=crop',
+        title: 'Mitos Diet Karbohidrat Terbongkar',
+        excerpt: 'Benarkah nasi putih adalah musuh utama? Simak penjelasan sains mengenai konsumsi karbohidrat kompleks vs sederhana.',
+        category: 'Mitos & Fakta',
+        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop',
     },
     {
         id: 3,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Pola makan',
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop',
+        title: 'Pentingnya Tidur untuk Pemulihan Otot',
+        excerpt: 'Pelajari mengapa istirahat yang cukup sangat penting bagi pemulihan fisik dan mental Anda.',
+        category: 'Gaya Hidup Sehat',
+        image: tidurImage,
     },
     {
         id: 4,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Lifestyle',
-        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop',
-    },
-    {
-        id: 5,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Diet',
-        image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&auto=format&fit=crop',
-    },
-    {
-        id: 6,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        excerpt: 'blablablablablablablablablablablabla blablablablablablablablablablablabla',
-        category: 'Diet',
-        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop',
-    },
+        title: 'Nutrisi Penting untuk Kesehatan Tulang',
+        excerpt: 'Daftar zat gizi mikro yang sering terabaikan namun krusial bagi kesehatan jangka panjang.',
+        category: 'Nutrisi & Gizi',
+        image: nutrisiImage,
+    }
 ];
 
 const filteredArticles = computed(() => {
@@ -115,12 +105,8 @@ const filteredArticles = computed(() => {
                             <img 
                                 :src="article.image" 
                                 :alt="article.title"
-                                class="w-full h-full object-cover grayscale brightness-75 contrast-125"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
-                            <!-- Placeholder Overlay Text -->
-                            <div class="absolute inset-0 flex items-center justify-center p-4">
-                                <span class="text-6xl font-black text-white/90 tracking-tighter uppercase leading-none">MALAS</span>
-                            </div>
                             <!-- Category Badge -->
                             <div class="absolute top-4 left-4">
                                 <div class="bg-green-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">

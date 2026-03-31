@@ -9,9 +9,14 @@ Route::inertia('/', 'Welcome', [
 
 // Public routes - accessible without login
 Route::inertia('recipes', 'Recipes/Index')->name('recipes.index');
-Route::inertia('recipes/{recipe}', 'Recipes/Show')->name('recipes.show');
+Route::get('recipes/{recipe}', function ($recipe) {
+    return inertia('Recipes/Show', ['recipe' => $recipe]);
+})->name('recipes.show');
+
 Route::inertia('articles', 'Articles/Index')->name('articles.index');
-Route::inertia('articles/{article}', 'Articles/Show')->name('articles.show');
+Route::get('articles/{article}', function ($article) {
+    return inertia('Articles/Show', ['article' => $article]);
+})->name('articles.show');
 Route::inertia('bmi-calculator', 'Calculator/BMI')->name('bmi.calculator');
 Route::inertia('calorie-calculator', 'Calculator/Calorie')->name('calorie.calculator');
 

@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import carbonaraImage from '../../../images/carbonara.jpg';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -28,22 +29,36 @@ const categories = [
 const recipes = [
     {
         id: 1,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        category: 'Sarapan',
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop',
+        title: 'Salmon Panggang Lemon',
+        category: 'Makan Malam',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&auto=format&fit=crop',
+        description: 'Salmon segar yang dipanggang dengan irisan lemon dan rempah pilihan untuk asupan protein maksimal.',
+        calories: 450,
     },
     {
         id: 2,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
-        category: 'Makan Siang',
-        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&auto=format&fit=crop',
+        title: 'Salad Quinoa Mediterania',
+        category: 'Sarapan',
+        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop',
+        description: 'Perpaduan quinoa, mentimun, dan tomat ceri yang segar, sempurna untuk makan siang ringan Anda.',
+        calories: 280,
     },
     {
         id: 3,
-        title: '9 Tips Pola Hidup Sehat untuk pemula',
+        title: 'Pasta Carbonara Gandum',
         category: 'Makan Malam',
-        image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&auto=format&fit=crop',
+        image: carbonaraImage,
+        description: 'Pasta gandum utuh dengan saus carbonara creamy tanpa krim, kaya akan karbohidrat kompleks.',
+        calories: 620,
     },
+    {
+        id: 4,
+        title: 'Pecel Sayur Madiun',
+        category: 'Makan Siang',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop',
+        description: 'Pecel sayur khas Madiun dengan bumbu kacang gurih dan sayuran segar pilihan.',
+        calories: 320,
+    }
 ];
 
 const filteredRecipes = computed(() => {
@@ -131,11 +146,8 @@ const filteredRecipes = computed(() => {
                                     <img 
                                         :src="recipe.image" 
                                         :alt="recipe.title"
-                                        class="w-full h-full object-cover grayscale brightness-75 contrast-125"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
-                                    <div class="absolute inset-0 flex items-center justify-center p-4">
-                                        <span class="text-6xl font-black text-white/90 tracking-tighter uppercase leading-none">MALAS</span>
-                                    </div>
                                     <div class="absolute top-4 left-4">
                                         <div class="bg-green-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">
                                             {{ recipe.category }}
@@ -146,8 +158,8 @@ const filteredRecipes = computed(() => {
                                     <h3 class="font-extrabold text-lg text-zinc-900 leading-snug">
                                         {{ recipe.title }}
                                     </h3>
-                                    <p class="text-[13px] text-gray-400 leading-relaxed font-medium">
-                                        blablablablablablablablablablablabla
+                                    <p class="text-[13px] text-gray-500 leading-relaxed font-medium line-clamp-2">
+                                        {{ recipe.description }}
                                     </p>
                                     <div class="pt-2">
                                         <div class="inline-flex items-center gap-2 bg-[#36d362] text-white px-5 py-2 rounded-lg text-[12px] font-bold hover:bg-green-500 transition-colors">

@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import laukImage from '../../images/lauk.png';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import hidrasiImage from '../../images/hidrasi.jpg';
+import tidurImage from '../../images/tidur.jpg';
+import nutrisiImage from '../../images/nutrisi tulang.jpg';
+import carbonaraImage from '../../images/carbonara.jpg';
 
 withDefaults(
     defineProps<{
@@ -11,6 +16,83 @@ withDefaults(
         canRegister: true,
     },
 );
+
+// Filters
+const activeRecipeFilter = ref('Semua');
+const activeArticleFilter = ref('Semua');
+
+// Data
+const recipes = [
+    {
+        id: 1,
+        title: 'Salmon Panggang Lemon',
+        category: 'Tinggi Protein',
+        calories: 450,
+        tag: 'Gizi Baik',
+        description: 'Salmon segar yang dipanggang dengan irisan lemon dan rempah pilihan untuk asupan protein maksimal.',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&auto=format&fit=crop',
+    },
+    {
+        id: 2,
+        title: 'Salad Quinoa Mediterania',
+        category: 'Rendah Kalori',
+        calories: 280,
+        tag: 'Serat Tinggi',
+        description: 'Perpaduan quinoa, mentimun, dan tomat ceri yang segar, sempurna untuk makan siang ringan Anda.',
+        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop',
+    },
+    {
+        id: 3,
+        title: 'Pasta Carbonara Gandum',
+        category: 'Tinggi Kalori',
+        calories: 620,
+        tag: 'Energi Ekstra',
+        description: 'Pasta gandum utuh dengan saus carbonara creamy tanpa krim, kaya akan karbohidrat kompleks.',
+        image: carbonaraImage,
+    }
+];
+
+const articles = [
+    {
+        id: 1,
+        title: '7 Kunci Hidrasi untuk Metabolisme',
+        category: 'Gaya Hidup Sehat',
+        description: 'Temukan bagaimana konsumsi air yang cukup dapat mempercepat pembakaran lemak harian Anda.',
+        image: hidrasiImage,
+    },
+    {
+        id: 2,
+        title: 'Mitos Diet Karbohidrat Terbongkar',
+        category: 'Mitos & Fakta',
+        description: 'Benarkah nasi putih adalah musuh utama? Simak penjelasan sains mengenai konsumsi karbohidrat kompleks vs sederhana.',
+        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop',
+    },
+    {
+        id: 3,
+        title: 'Pentingnya Tidur untuk Pemulihan Otot',
+        category: 'Gaya Hidup Sehat',
+        description: 'Pelajari mengapa istirahat yang cukup sangat penting bagi pemulihan fisik dan mental Anda.',
+        image: tidurImage,
+    },
+    {
+        id: 4,
+        title: 'Nutrisi Penting untuk Kesehatan Tulang',
+        category: 'Nutrisi & Gizi',
+        description: 'Daftar zat gizi mikro yang sering terabaikan namun krusial bagi kesehatan jangka panjang.',
+        image: nutrisiImage,
+    }
+];
+
+// Computeds
+const filteredRecipes = computed(() => {
+    if (activeRecipeFilter.value === 'Semua') return recipes;
+    return recipes.filter(r => r.category === activeRecipeFilter.value);
+});
+
+const filteredArticles = computed(() => {
+    if (activeArticleFilter.value === 'Semua') return articles;
+    return articles.filter(a => a.category === activeArticleFilter.value);
+});
 </script>
 
 <template>
@@ -59,80 +141,50 @@ withDefaults(
                 
                 <!-- Filters wrapped in a single grey pill -->
                 <div class="flex justify-center mt-10">
-                    <div class="inline-flex items-center bg-[#F3F4F0] rounded-full px-8 py-2.5 gap-8">
-                        <button class="text-[13px] font-bold text-black hover:text-green-600 transition">Tinggi Kalori</button>
-                        <button class="text-[13px] font-bold text-black hover:text-green-600 transition">Rendah Kalori</button>
-                        <button class="text-[13px] font-bold text-black hover:text-green-600 transition">Tinggi Protein</button>
+                    <div class="inline-flex items-center bg-[#F3F4F0] rounded-full px-6 md:px-8 py-2.5 gap-4 md:gap-8 overflow-x-auto scrollbar-hide max-w-full">
+                        <button 
+                            @click="activeRecipeFilter = 'Semua'"
+                            :class="activeRecipeFilter === 'Semua' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Semua</button>
+                        <button 
+                            @click="activeRecipeFilter = 'Tinggi Kalori'"
+                            :class="activeRecipeFilter === 'Tinggi Kalori' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Tinggi Kalori</button>
+                        <button 
+                            @click="activeRecipeFilter = 'Rendah Kalori'"
+                            :class="activeRecipeFilter === 'Rendah Kalori' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Rendah Kalori</button>
+                        <button 
+                            @click="activeRecipeFilter = 'Tinggi Protein'"
+                            :class="activeRecipeFilter === 'Tinggi Protein' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Tinggi Protein</button>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <Link href="/recipes/1" class="group">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-500">
+                <Link v-for="recipe in filteredRecipes" :key="recipe.id" :href="`/recipes/${recipe.id}`" class="group animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div class="h-full bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" alt="Egg Roll Tahu" class="w-full h-[240px] object-cover">
+                        <div class="relative overflow-hidden aspect-[16/11]">
+                            <img :src="recipe.image" :alt="recipe.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-4 left-4">
-                                <span class="bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tinggi Protein</span>
+                                <span class="bg-[#36d362] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                                    {{ recipe.category }}
+                                </span>
                             </div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-[20px] font-black text-black mb-3 text-left">Egg Roll Tahu</h3>
+                            <h3 class="text-[20px] font-black text-black mb-3 text-left">{{ recipe.title }}</h3>
                             <div class="flex items-center gap-3 mb-4">
-                                <span class="text-[#36d362] text-sm font-black">350 Kalori</span>
-                                <span class="bg-[#ff9d29]/20 text-[#ff9d29] text-[10px] font-bold px-3 py-1 rounded-full">Gizi Baik</span>
+                                <span class="text-[#36d362] text-sm font-black">{{ recipe.calories }} Kalori</span>
+                                <span class="bg-[#ff9d29]/20 text-[#ff9d29] text-[10px] font-bold px-3 py-1 rounded-full">{{ recipe.tag }}</span>
                             </div>
                             <p class="text-gray-500 text-[14px] mb-8 leading-relaxed line-clamp-2 text-left">
-                                Call out a feature, benefit, or value of your site or product that can stand on its own.
-                            </p>
-                            <div class="inline-flex items-center text-[13px] font-bold text-white bg-[#36d362] px-6 py-2.5 rounded-lg hover:bg-green-600 transition">
-                                Lihat Resep &rarr;
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-                <!-- Card 2 -->
-                <Link href="/recipes/2" class="group">
-                    <div class="h-full bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" alt="Egg Roll Tahu" class="w-full h-[240px] object-cover">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tinggi Protein</span>
-                            </div>
-                        </div>
-                        <div class="p-8">
-                            <h3 class="text-[20px] font-black text-black mb-3 text-left">Egg Roll Tahu</h3>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-[#36d362] text-sm font-black">350 Kalori</span>
-                                <span class="bg-[#ff9d29]/20 text-[#ff9d29] text-[10px] font-bold px-3 py-1 rounded-full">Gizi Baik</span>
-                            </div>
-                            <p class="text-gray-500 text-[14px] mb-8 leading-relaxed line-clamp-2 text-left">
-                                Call out a feature, benefit, or value of your site or product that can stand on its own.
-                            </p>
-                            <div class="inline-flex items-center text-[13px] font-bold text-white bg-[#36d362] px-6 py-2.5 rounded-lg hover:bg-green-600 transition">
-                                Lihat Resep &rarr;
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-                <!-- Card 3 -->
-                <Link href="/recipes/3" class="group">
-                    <div class="h-full bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" alt="Egg Roll Tahu" class="w-full h-[240px] object-cover">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Tinggi Protein</span>
-                            </div>
-                        </div>
-                        <div class="p-8">
-                            <h3 class="text-[20px] font-black text-black mb-3 text-left">Egg Roll Tahu</h3>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-[#36d362] text-sm font-black">350 Kalori</span>
-                                <span class="bg-[#ff9d29]/20 text-[#ff9d29] text-[10px] font-bold px-3 py-1 rounded-full">Gizi Baik</span>
-                            </div>
-                            <p class="text-gray-500 text-[14px] mb-8 leading-relaxed line-clamp-2 text-left">
-                                Call out a feature, benefit, or value of your site or product that can stand on its own.
+                                {{ recipe.description }}
                             </p>
                             <div class="inline-flex items-center text-[13px] font-bold text-white bg-[#36d362] px-6 py-2.5 rounded-lg hover:bg-green-600 transition">
                                 Lihat Resep &rarr;
@@ -159,31 +211,46 @@ withDefaults(
                 
                 <!-- Filters wrapped in a single grey pill -->
                 <div class="flex justify-center mt-10">
-                    <div class="inline-flex items-center bg-[#F3F4F0] rounded-full px-8 py-2.5 gap-8">
-                        <button class="text-[13px] font-bold text-black transition">Gaya Hidup Sehat</button>
-                        <button class="text-[13px] font-bold text-black transition">Mitos & Fakta</button>
-                        <button class="text-[13px] font-bold text-black transition">Nutrisi & Gizi</button>
+                    <div class="inline-flex items-center bg-[#F3F4F0] rounded-full px-6 md:px-8 py-2.5 gap-4 md:gap-8 overflow-x-auto scrollbar-hide max-w-full">
+                        <button 
+                            @click="activeArticleFilter = 'Semua'"
+                            :class="activeArticleFilter === 'Semua' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Semua</button>
+                        <button 
+                            @click="activeArticleFilter = 'Gaya Hidup Sehat'"
+                            :class="activeArticleFilter === 'Gaya Hidup Sehat' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Gaya Hidup Sehat</button>
+                        <button 
+                            @click="activeArticleFilter = 'Mitos & Fakta'"
+                            :class="activeArticleFilter === 'Mitos & Fakta' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Mitos & Fakta</button>
+                        <button 
+                            @click="activeArticleFilter = 'Nutrisi & Gizi'"
+                            :class="activeArticleFilter === 'Nutrisi & Gizi' ? 'text-[#36d362]' : 'text-black'"
+                            class="text-[13px] font-bold hover:text-[#36d362] transition whitespace-nowrap"
+                        >Nutrisi & Gizi</button>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Article Card 1 -->
-                <Link v-for="i in 3" :key="i" :href="`/articles/${i}`" class="group">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-500">
+                <Link v-for="article in filteredArticles" :key="article.id" :href="`/articles/${article.id}`" class="group animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div class="h-full bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                         <div class="relative overflow-hidden aspect-[16/11]">
-                            <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&q=80&w=600" alt="Article" class="w-full h-full object-cover grayscale brightness-75 contrast-125">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-6xl font-black text-white px-4 leading-none tracking-tighter uppercase">MALAS</span>
-                            </div>
+                            <img :src="article.image" :alt="article.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-4 left-4">
-                                <span class="bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Diet</span>
+                                <span class="bg-[#36d362] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                                    {{ article.category.split(' ')[0] }}
+                                </span>
                             </div>
                         </div>
                         <div class="p-8 text-left">
-                            <h3 class="text-[18px] font-black text-black mb-3">9 Tips Pola Hidup Sehat untuk pemula</h3>
+                            <h3 class="text-[18px] font-black text-black mb-3">{{ article.title }}</h3>
                             <p class="text-gray-500 text-[13px] mb-8 leading-relaxed line-clamp-3">
-                                Inisilah kals asdsad asdsad ad sad ad s ad sa d as d sa d sa d sa d sa d s ad sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d sa d
+                                {{ article.description }}
                             </p>
                             <div class="inline-flex items-center gap-2 bg-[#36d362] text-white px-5 py-2.5 rounded-md text-[13px] font-bold hover:bg-green-600 transition">
                                 Baca Selengkapnya &rarr;
@@ -201,6 +268,7 @@ withDefaults(
         </section>
     </GuestLayout>
 </template>
+
 
 
 <style>

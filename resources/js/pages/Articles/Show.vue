@@ -7,29 +7,80 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Link as LinkIcon, Quote } from 'lucide-vue-next';
 
+import hidrasiImage from '../../../images/hidrasi.jpg';
+import tidurImage from '../../../images/tidur.jpg';
+import nutrisiImage from '../../../images/nutrisi tulang.jpg';
+
 const props = defineProps<{
-    articleId?: string | number;
+    article: string | number;
 }>();
 
-const articleData = {
-    title: '7 Tips Menjaga Nutrisi Saat Puasa Agar Tetap Bugar',
-    author: 'Dr. Sarah Gizi',
-    category: 'Tips Sehat',
-    date: '12 Mar 2026',
-    readTime: '8 min baca',
-    image: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?w=1200&auto=format&fit=crop',
-    content: [
-        { type: 'p', text: 'Berpuasa bukan berarti kita mengesampingkan asupan nutrisi bagi tubuh. Sebaliknya, saat berpuasa, tubuh membutuhkan perhatian ekstra untuk tetap terhidrasi dan berenergi sepanjang hari. Nutrisi yang tepat dapat membantu kita menjalankan ibadah dengan lebih khusyuk dan tetap produktif dalam beraktivitas.' },
-        { type: 'h2', text: '1. Jangan Pernah Melewatkan Sahur' },
-        { type: 'p', text: 'Sahur adalah waktu makan yang sangat penting, layaknya sarapan di hari biasa. Konsumsilah karbohidrat kompleks seperti nasi merah, gandum, atau oatmeal yang melepaskan energi secara perlahan sepanjang hari. Tambahkan protein dari telur atau tempe untuk rasa kenyang yang lebih lama.' },
-        { type: 'h2', text: '2. Berbuka dengan Porsi yang Tepat' },
-        { type: 'p', text: 'Mulailah dengan buah-buahan segar atau kurma yang kaya akan serat alami. Hindari langsung mengonsumsi makanan porsi besar yang berminyak karena dapat mengejutkan sistem pencernaan Anda yang telah beristirahat seharian.' },
-        { type: 'quote', text: 'Nutrisi yang baik adalah fondasi dari kesehatan lahir dan batin, terutama saat tubuh sedang melakukan detoksifikasi melalui proses puasa yang alami.' },
-        { type: 'h2', text: '3. Prioritaskan Hidrasi: Rumus 2-4-2' },
-        { type: 'p', text: 'Menjaga tubuh tetap terhidrasi sangatlah krusial. Gunakan pola 2-4-2: dua gelas air saat berbuka, empat gelas air di sela-sela malam hari, dan dua gelas air saat sahur. Hindari minuman berkafein yang berlebihan karena bersifat diuretik yang menarik cairan keluar dari tubuh.' }
-    ]
-};
+const allArticles = [
+    {
+        id: 1,
+        title: '7 Kunci Hidrasi untuk Metabolisme',
+        author: 'Dr. Sarah Gizi',
+        category: 'Gaya Hidup Sehat',
+        date: '12 Mar 2026',
+        readTime: '8 min baca',
+        image: hidrasiImage,
+        content: [
+            { type: 'p', text: 'Berpuasa bukan berarti kita mengesampingkan asupan nutrisi bagi tubuh. Sebaliknya, saat berpuasa, tubuh membutuhkan perhatian ekstra untuk tetap terhidrasi dan berenergi sepanjang hari.' },
+            { type: 'h2', text: 'Pentingnya Hidrasi' },
+            { type: 'p', text: 'Air adalah komponen kunci bagi metabolisme tubuh yang sehat. Tanpanya, tubuh tidak dapat memproses nutrisi secara maksimal.' },
+            { type: 'quote', text: 'Hidrasi bukan sekadar menghilangkan haus, tapi menyeimbangkan sistem internal tubuh Anda.' }
+        ]
+    },
+    {
+        id: 2,
+        title: 'Mitos Diet Karbohidrat Terbongkar',
+        author: 'Dr. John Doe',
+        category: 'Mitos & Fakta',
+        date: '14 Mar 2026',
+        readTime: '6 min baca',
+        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&auto=format&fit=crop',
+        content: [
+            { type: 'p', text: 'Benarkah nasi putih adalah musuh utama? Simak penjelasan sains mengenai konsumsi karbohidrat kompleks vs sederhana.' },
+            { type: 'h2', text: 'Pentingnya Karbohidrat' },
+            { type: 'p', text: 'Karbohidrat adalah sumber energi utama tubuh. Menghindari karbohidrat sepenuhnya justru dapat menurunkan metabolisme dan fungsi otak.' },
+            { type: 'quote', text: 'Kuncinya adalah jenis dan porsinya, bukan menghindarinya sama sekali.' }
+        ]
+    },
+    {
+        id: 3,
+        title: 'Pentingnya Tidur untuk Pemulihan Otot',
+        author: 'Ade Rai-mon',
+        category: 'Gaya Hidup Sehat',
+        date: '15 Mar 2026',
+        readTime: '10 min baca',
+        image: tidurImage,
+        content: [
+            { type: 'p', text: 'Banyak orang mengira pembentukan otot terjadi saat latihan. Kenyataannya, otot Anda tumbuh dan pulih saat Anda sedang beristirahat, terutama saat tidur nyenyak.' },
+            { type: 'h2', text: 'Siklus Tidur yang Baik' },
+            { type: 'p', text: 'Tidur 7-8 jam per malam memastikan hormon pertumbuhan dilepaskan secara optimal untuk memperbaiki jaringan tubuh yang rusak.' },
+            { type: 'quote', text: 'Tidur adalah bentuk latihan pasif yang paling efektif untuk kemajuan fisik Anda.' }
+        ]
+    },
+    {
+        id: 4,
+        title: 'Nutrisi Penting untuk Kesehatan Tulang',
+        author: 'Prof. Bone',
+        category: 'Nutrisi & Gizi',
+        date: '20 Mar 2026',
+        readTime: '5 min baca',
+        image: nutrisiImage,
+        content: [
+            { type: 'p', text: 'Kesehatan tulang melampaui sekadar kalsium. Vitamin D, magnesium, dan vitamin K2 adalah orkestra mineral yang bekerja bersama melindungi densitas tulang Anda.' },
+            { type: 'h2', text: 'Sumber Nutrisi Tulang' },
+            { type: 'p', text: 'Ikan salmon, sayuran hijau, dan sinar matahari pagi adalah kombinasi terbaik untuk menjaga kerangka tubuh Anda tetap kuat hingga hari tua.' }
+        ]
+    }
+];
+
+const articleId = (props.article || 1).toString();
+const articleData = allArticles.find(a => a.id.toString() === articleId) || allArticles[0];
 </script>
+
 
 <template>
     <Head :title="articleData.title" />

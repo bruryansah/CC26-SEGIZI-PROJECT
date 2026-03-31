@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import carbonaraImage from '../../../images/carbonara.jpg';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,43 +9,68 @@ import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Clock, Flame, Users, ChefHat, CheckCircle2, ShoppingBasket } from 'lucide-vue-next';
 
 const props = defineProps<{
-    recipeId?: string | number;
+    recipe: string | number;
 }>();
 
-// In production, this would be fetched from the backend via props
-const recipeData = {
-    title: 'Salad Quinoa Protein Tinggi',
-    category: 'Breakfast',
-    calories: 320,
-    time: '15 min',
-    servings: '2 porsi',
-    description: 'Salad quinoa yang segar dan mengenyangkan, kaya akan protein nabati dan serat. Cocok untuk memulai hari Anda dengan energi maksimal.',
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&auto=format&fit=crop',
-    ingredients: [
-        '1 cup Quinoa matang',
-        '1/2 buah Mentimun, potong dadu',
-        '1 buah Tomat merah, potong dadu',
-        '1/4 buah Bawang merah, cincang halus',
-        '1 ikat kecil Peterseli, cincang',
-        '2 sdm Minyak zaitun',
-        '1 sdm Perasan lemon',
-        'Garam dan lada secukupnya'
-    ],
-    instructions: [
-        'Cuci bersih semua sayuran yang akan digunakan.',
-        'Dalam mangkuk besar, campurkan quinoa matang, mentimun, tomat, bawang merah, dan peterseli.',
-        'Dalam mangkuk kecil, kocok minyak zaitun, perasan lemon, garam, dan lada untuk membuat dressing.',
-        'Tuangkan dressing ke atas campuran salad dan aduk rata hingga semua bahan terlapisi.',
-        'Sajikan segera atau simpan dalam lemari es selama 30 menit untuk rasa yang lebih meresap.'
-    ],
-    nutrition: {
-        protein: '15g',
-        carbs: '42g',
-        fat: '12g',
-        fiber: '8g'
+const allRecipes = [
+    {
+        id: 1,
+        title: 'Salmon Panggang Lemon',
+        category: 'Makan Malam',
+        calories: 450,
+        time: '25 min',
+        servings: '1 porsi',
+        description: 'Salmon segar yang dipanggang dengan irisan lemon dan rempah pilihan untuk asupan protein maksimal.',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&auto=format&fit=crop',
+        ingredients: ['1 Potong Salmon', '1 Buah Lemon', 'Garam & Lada', 'Minyak Zaitun'],
+        instructions: ['Panaskan oven', 'Bumbui salmon', 'Panggang selama 15 menit'],
+        nutrition: { protein: '30g', carbs: '2g', fat: '15g', fiber: '0g' }
+    },
+    {
+        id: 2,
+        title: 'Salad Quinoa Mediterania',
+        category: 'Sarapan',
+        calories: 280,
+        time: '15 min',
+        servings: '2 porsi',
+        description: 'Perpaduan quinoa, mentimun, dan tomat ceri yang segar, sempurna untuk makan siang ringan Anda.',
+        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&auto=format&fit=crop',
+        ingredients: ['1 cup Quinoa', 'Mentimun', 'Tomat Ceri'],
+        instructions: ['Rebus Quinoa', 'Potong sayuran', 'Campur semua bahan'],
+        nutrition: { protein: '12g', carbs: '45g', fat: '8g', fiber: '10g' }
+    },
+    {
+        id: 3,
+        title: 'Pasta Carbonara Gandum',
+        category: 'Makan Malam',
+        calories: 620,
+        time: '20 min',
+        servings: '1 porsi',
+        description: 'Pasta gandum utuh dengan saus carbonara creamy tanpa krim, kaya akan karbohidrat kompleks.',
+        image: carbonaraImage,
+        ingredients: ['Pasta Gandum', 'Telur', 'Keju Parmesan', 'Daging Asap'],
+        instructions: ['Rebus pasta', 'Campur telur dan keju', 'Aduk pasta panas dengan saus'],
+        nutrition: { protein: '25g', carbs: '65g', fat: '22g', fiber: '5g' }
+    },
+    {
+        id: 4,
+        title: 'Pecel Sayur Madiun',
+        category: 'Makan Siang',
+        calories: 320,
+        time: '30 min',
+        servings: '2 porsi',
+        description: 'Pecel sayur khas Madiun dengan bumbu kacang gurih dan sayuran segar pilihan.',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&auto=format&fit=crop',
+        ingredients: ['Bayam', 'Tauge', 'Kacang Panjang', 'Bumbu Pecel'],
+        instructions: ['Rebus semua sayuran', 'Siapkan bumbu kacang', 'Siram bumbu ke sayuran'],
+        nutrition: { protein: '8g', carbs: '35g', fat: '12g', fiber: '7g' }
     }
-};
+];
+
+const recipeId = (props.recipe || 1).toString();
+const recipeData = allRecipes.find(r => r.id.toString() === recipeId) || allRecipes[0];
 </script>
+
 
 <template>
     <Head :title="recipeData.title" />
