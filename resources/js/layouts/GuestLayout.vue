@@ -1,186 +1,159 @@
-<script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3';
-import { dashboard, login, register, logout } from '@/routes';
+<!-- resources/js/Layouts/GuestLayout.vue -->
+<script setup>
+import { Link } from '@inertiajs/vue3'
 
-import { 
-    DropdownMenu, 
-    DropdownMenuTrigger, 
-    DropdownMenuContent, 
-    DropdownMenuItem, 
-    DropdownMenuSeparator,
-    DropdownMenuLabel,
-    DropdownMenuGroup
-} from '@/components/ui/dropdown-menu';
-import { User, LayoutDashboard, Settings, LogOut, ChevronDown } from 'lucide-vue-next';
-import { router } from '@inertiajs/vue3';
-
-defineProps<{
-    canRegister?: boolean;
-}>();
-
-const page = usePage();
-
-const logoutHandle = () => {
-    router.post(logout.url());
-};
+defineProps({
+    title: String
+})
 </script>
 
 <template>
-    <div class="min-h-screen bg-white font-sans text-gray-900">
-        <!-- Navbar -->
-        <nav class="flex items-center justify-between px-8 md:px-20 py-5 bg-white fixed w-full top-0 z-[9999] shadow-sm">
-            <div class="flex items-center">
-                <!-- Logo -->
-                <Link href="/" class="text-[28px] font-bold tracking-tight">
-                    <span class="text-[#36d362]">Se</span><span class="text-[#ff9d29]">Gizi</span>
-                </Link>
-            </div>
-
-            <!-- Center Links -->
-            <div class="hidden md:flex items-center gap-10 text-[15px] font-semibold text-black">
-                <Link href="/" :class="page.url === '/' ? 'text-[#36d362]' : 'hover:text-[#36d362] transition'">Beranda</Link>
-                <Link href="/recipes" :class="page.url.startsWith('/recipes') ? 'text-[#36d362]' : 'hover:text-[#36d362] transition'">Menu Makanan</Link>
-                <Link href="/bmi-calculator" :class="page.url.startsWith('/bmi-calculator') ? 'text-[#36d362]' : 'hover:text-[#36d362] transition'">Kalkulator</Link>
-                <Link href="/articles" :class="page.url.startsWith('/articles') ? 'text-[#36d362]' : 'hover:text-[#36d362] transition'">Artikel</Link>
-            </div>
-
-            <!-- Auth Links -->
-            <div class="flex items-center gap-6 text-[15px] font-semibold">
-                <template v-if="page.props.auth?.user">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger class="outline-none">
-                            <div class="flex items-center gap-3 group px-3 py-1.5 rounded-2xl hover:bg-zinc-50 transition-all border border-transparent hover:border-zinc-100">
-                                <div class="text-right hidden sm:block">
-                                    <p class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest leading-none mb-1">Akun Saya</p>
-                                    <p class="text-sm text-black font-black leading-none group-hover:text-[#36d362] transition-colors">
-                                        {{ page.props.auth.user.name }}
-                                    </p>
-                                </div>
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center border-2 border-white group-hover:border-[#36d362] transition-all overflow-hidden shadow-sm">
-                                        <template v-if="page.props.auth.user.profile_photo_url">
-                                            <img :src="page.props.auth.user.profile_photo_url" :alt="page.props.auth.user.name" class="w-full h-full object-cover" />
-                                        </template>
-                                        <template v-else>
-                                            <span class="text-[#36d362] font-black text-sm">
-                                                {{ page.props.auth.user.name.charAt(0).toUpperCase() }}
-                                            </span>
-                                        </template>
-                                    </div>
-                                    <div class="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 border border-zinc-100 shadow-sm text-zinc-400 group-hover:text-[#36d362] transition-colors">
-                                        <ChevronDown class="w-3 h-3" />
-                                    </div>
-                                </div>
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent class="w-64 mt-2 rounded-[24px] shadow-2xl border-none p-3 bg-white animate-in fade-in zoom-in duration-200" align="end">
-                            <DropdownMenuLabel class="px-3 py-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-[#36d362] font-bold">
-                                        {{ page.props.auth.user.name.charAt(0).toUpperCase() }}
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <p class="text-sm font-black text-zinc-900 leading-none mb-1">{{ page.props.auth.user.name }}</p>
-                                        <p class="text-[10px] text-zinc-400 font-bold uppercase tracking-tight">{{ page.props.auth.user.email }}</p>
-                                    </div>
-                                </div>
-                            </DropdownMenuLabel>
-                            
-                            <DropdownMenuSeparator class="bg-zinc-50 my-2 h-px" />
-                            
-                            <DropdownMenuGroup class="space-y-1">
-                                <DropdownMenuItem @click="router.visit('/')" class="rounded-xl px-4 py-3 gap-3 cursor-pointer group focus:bg-zinc-100 transition-all">
-                                    <LayoutDashboard class="w-4 h-4 text-black" />
-                                    <span class="font-bold text-sm text-black">Dashboard</span>
-                                </DropdownMenuItem>
-                                
-                                <DropdownMenuItem class="rounded-xl px-4 py-3 gap-3 cursor-pointer group focus:bg-zinc-100 transition-all">
-                                    <User class="w-4 h-4 text-black" />
-                                    <span class="font-bold text-sm text-black">Profil Saya</span>
-                                </DropdownMenuItem>
-                                
-                                <DropdownMenuItem class="rounded-xl px-4 py-3 gap-3 cursor-pointer group focus:bg-zinc-100 transition-all">
-                                    <Settings class="w-4 h-4 text-black" />
-                                    <span class="font-bold text-sm text-black">Pengaturan</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuGroup>
-                            
-                            <DropdownMenuSeparator class="bg-zinc-50 my-2 h-px" />
-                            
-                            <DropdownMenuItem @click="logoutHandle" class="rounded-xl px-4 py-3 gap-3 cursor-pointer group focus:bg-red-500 focus:text-white text-red-500 transition-all font-bold">
-                                <LogOut class="w-4 h-4" />
-                                <span class="text-sm">Keluar</span>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </template>
-                <template v-else>
-                    <Link :href="login.url()" class="text-black hover:text-[#36d362] transition font-bold">Masuk</Link>
-                    <Link :href="register.url()" class="px-7 py-3 text-white bg-[#36d362] rounded-full hover:bg-green-600 hover:shadow-lg hover:shadow-green-100 transition-all font-bold">
-                        Daftar
+    <div class="min-h-screen bg-white font-sans text-gray-800">
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Logo -->
+                    <Link href="/" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-primary-800">SeGizi</span>
                     </Link>
-                </template>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <Link href="/" class="text-gray-700 hover:text-primary-600 font-medium transition">Beranda</Link>
+                        <Link href="/recipes" class="text-gray-700 hover:text-primary-600 font-medium transition">Resep</Link>
+                        <Link href="/articles" class="text-gray-700 hover:text-primary-600 font-medium transition">Artikel</Link>
+                        <Link href="/calculator/bmi" class="text-gray-700 hover:text-primary-600 font-medium transition">Kalkulator</Link>
+                    </div>
+
+                    <!-- Auth Buttons -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <Link href="/login" class="text-primary-600 font-medium hover:text-primary-700 transition">Masuk</Link>
+                        <Link href="/register" class="bg-primary-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-primary-700 transition shadow-lg">
+                            Daftar
+                        </Link>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-700 text-2xl" @click="toggleMobileMenu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div v-show="mobileMenuOpen" class="md:hidden bg-white/95 backdrop-blur-lg border-t">
+                <div class="px-4 py-4 space-y-3">
+                    <Link href="/" class="block text-gray-700 py-2 font-medium">Beranda</Link>
+                    <Link href="/recipes" class="block text-gray-700 py-2 font-medium">Resep</Link>
+                    <Link href="/articles" class="block text-gray-700 py-2 font-medium">Artikel</Link>
+                    <Link href="/calculator/bmi" class="block text-gray-700 py-2 font-medium">Kalkulator</Link>
+                    <hr class="my-2">
+                    <Link href="/login" class="block text-primary-600 font-medium py-2">Masuk</Link>
+                    <Link href="/register" class="block bg-primary-600 text-white py-3 rounded-full font-medium text-center">Daftar</Link>
+                </div>
             </div>
         </nav>
 
-        <!-- Page Content -->
-        <main class="mt-[80px]">
+        <!-- Main Content -->
+        <main class="pt-20">
             <slot />
         </main>
 
         <!-- Footer -->
-        <footer class="bg-[#f0fff4] pt-20 pb-10 px-8 md:px-20 mt-16 font-sans">
-            <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-green-100 pb-20">
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-black text-[#36d362]">SeGizi</h2>
-                    <p class="text-gray-600 text-sm leading-relaxed font-medium">
-                        Makanan untuk hidup, <br> bukan hidup untuk makanan
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg text-[#36d362] hover:bg-green-50 transition shadow-sm font-bold text-xs uppercase">IG</a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg text-[#36d362] hover:bg-green-50 transition shadow-sm font-bold text-xs uppercase">FB</a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg text-[#36d362] hover:bg-green-50 transition shadow-sm font-bold text-xs uppercase">X</a>
+        <footer class="bg-gray-900 text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-12">
+                    <!-- Brand -->
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-leaf text-white text-lg"></i>
+                            </div>
+                            <span class="text-2xl font-bold">SeGizi</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Aplikasi Healthy Lives & Well-Being untuk Indonesia yang lebih sehat.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">Fitur</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><Link href="/recipes" class="hover:text-white transition">Resep Sehat</Link></li>
+                            <li><Link href="/calculator/bmi" class="hover:text-white transition">Kalkulator BMI</Link></li>
+                            <li><Link href="/calculator/calorie" class="hover:text-white transition">Kalori Harian</Link></li>
+                            <li><Link href="/articles" class="hover:text-white transition">Artikel</Link></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">Perusahaan</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
+                            <li><a href="#" class="hover:text-white transition">Tim CC26</a></li>
+                            <li><a href="#" class="hover:text-white transition">Kontak</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">Newsletter</h4>
+                        <p class="text-gray-400 text-sm mb-4">Dapatkan tips kesehatan terbaru.</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Email Anda" class="flex-1 px-4 py-3 bg-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-white text-sm">
+                            <button class="bg-primary-600 px-4 py-3 rounded-r-lg hover:bg-primary-700 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Links -->
-                <div>
-                    <h4 class="font-bold text-zinc-900 mb-6 text-sm uppercase tracking-widest">Navigasi</h4>
-                    <ul class="space-y-4 text-[15px] text-zinc-500 font-medium">
-                        <li><Link href="/" class="hover:text-[#36d362] transition-colors">Beranda</Link></li>
-                        <li><Link href="/recipes" class="hover:text-[#36d362] transition-colors">Menu Makanan</Link></li>
-                        <li><Link href="/bmi-calculator" class="hover:text-[#36d362] transition-colors">Kalkulator</Link></li>
-                        <li><Link href="/articles" class="hover:text-[#36d362] transition-colors">Artikel</Link></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-zinc-900 mb-6 text-sm uppercase tracking-widest">Kategori</h4>
-                    <ul class="space-y-4 text-[15px] text-zinc-500 font-medium">
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Diet</a></li>
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Protein Tinggi</a></li>
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Kalori Rendah</a></li>
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Gizi Edu</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-zinc-900 mb-6 text-sm uppercase tracking-widest">Support</h4>
-                    <ul class="space-y-4 text-[15px] text-zinc-500 font-medium">
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Kontak</a></li>
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Legal</a></li>
-                        <li><a href="#" class="hover:text-[#36d362] transition-colors">Tentang</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="max-w-[1400px] mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium text-zinc-400 gap-4">
-                <p>&copy; 2024 SeGizi. Semua Hak Dilindungi.</p>
-                <div class="flex gap-8">
-                    <a href="#" class="hover:text-zinc-600">Kebijakan Privasi</a>
-                    <a href="#" class="hover:text-zinc-600">Syarat & Ketentuan</a>
+                <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm">© 2026 SeGizi by CC26 Team. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-500">
+                        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    </div>
                 </div>
             </div>
         </footer>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            mobileMenuOpen: false
+        }
+    },
+    methods: {
+        toggleMobileMenu() {
+            this.mobileMenuOpen = !this.mobileMenuOpen
+        }
+    },
+    mounted() {
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar')
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-lg', 'shadow-lg')
+            } else {
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-lg', 'shadow-lg')
+            }
+        })
+    }
+}
+</script>
